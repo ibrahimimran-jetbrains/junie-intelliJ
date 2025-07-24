@@ -63,6 +63,11 @@ public class Owner extends Person {
 	@Column(name = "occupation")
 	private String occupation;
 
+	@Column(name = "phone_number")
+	@NotBlank
+	@Pattern(regexp = "\\d{10}", message = "{phoneNumber.invalid}")
+	private String phoneNumber;
+
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "owner_id")
 	@OrderBy("name")
@@ -98,6 +103,14 @@ public class Owner extends Person {
 
 	public void setOccupation(String occupation) {
 		this.occupation = occupation;
+	}
+
+	public String getPhoneNumber() {
+		return this.phoneNumber;
+	}
+
+	public void setPhoneNumber(String phoneNumber) {
+		this.phoneNumber = phoneNumber;
 	}
 
 	public List<Pet> getPets() {
@@ -163,6 +176,7 @@ public class Owner extends Person {
 			.append("address", this.address)
 			.append("city", this.city)
 			.append("telephone", this.telephone)
+			.append("phoneNumber", this.phoneNumber)
 			.append("occupation", this.occupation)
 			.toString();
 	}
