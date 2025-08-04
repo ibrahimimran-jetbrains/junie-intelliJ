@@ -1,15 +1,15 @@
 {
   "name": "Java",
-  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "image": "mcr.microsoft.com/devcontainers/java:1-21",
   "features": {
     "ghcr.io/devcontainers/features/java:1": {
-      "version": "21-oracle",
-      "jdkDistro": "oracle"
-    },
-    "ghcr.io/devcontainers/features/azure-cli:1": {},
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
-    "ghcr.io/devcontainers/features/github-cli:1": {}
-  },
+      "version": "none",
+      "installMaven": "true",
+      "mavenVersion": "3.8.6",
+      "installGradle": "true"
+    }
+  }
+},
 
   "customizations": {
     "vscode": {
