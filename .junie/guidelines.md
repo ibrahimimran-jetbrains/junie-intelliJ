@@ -26,4 +26,3 @@ This is a Maven-based Spring Boot project using Java 17, Spring Data JPA, and Th
 * **Execution**: Before submitting any changes, ensure all tests pass by running the project's Maven wrapper command: `./mvnw test`.
 
 ---
-
