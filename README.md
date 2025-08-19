@@ -1,5 +1,7 @@
 # Spring PetClinic Sample Application (junie-intelliJ Repository)
 
+[English](README.md) | [العربية](README.ar.md)
+
 *Note: This is a fork of the original Spring PetClinic application, now hosted in the junie-intelliJ repository.*
 
 [![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml)[![Build Status](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml)
