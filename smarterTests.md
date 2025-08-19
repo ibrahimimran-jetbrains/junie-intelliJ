@@ -1,5 +1,5 @@
 ### Short answer
-Yes. Below is a practical playbook to create smarter tests in a Spring Boot (PetClinic) project and reuse examples across unit, web, and data tests. It includes ready-to-copy JUnit 5 patterns, reusable fixtures, and test-slice setups.
+Below is a practical playbook to create smarter tests in a Spring Boot (PetClinic) project and reuse examples across unit, web, and data tests. It includes ready-to-copy JUnit 5 patterns, reusable fixtures, and test-slice setups.
 
 ---
 
