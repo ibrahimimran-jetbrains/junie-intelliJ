@@ -1,0 +1,163 @@
+# تطبيق Spring PetClinic النموذجي (مستودع junie-intelliJ)
+
+ملاحظة: هذا تفرّع (Fork) من تطبيق Spring PetClinic الأصلي، وهو مستضاف الآن في مستودع junie-intelliJ.
+
+[![حالة البناء (Maven)](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/maven-build.yml)[![حالة البناء (Gradle)](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml/badge.svg)](https://github.com/spring-projects/spring-petclinic/actions/workflows/gradle-build.yml)
+
+[![افتح في Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/spring-projects/spring-petclinic) [![افتح في GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=main&repo=7517918)
+
+## فهم تطبيق Spring Petclinic عبر بعض المخططات
+
+[شاهد العرض التقديمي هنا](https://speakerdeck.com/michaelisvy/spring-petclinic-sample-application)
+
+## تشغيل Petclinic محلياً
+
+تطبيق Petclinic هو تطبيق [Spring Boot](https://spring.io/guides/gs/spring-boot) مبني باستخدام [Maven](https://spring.io/guides/gs/maven/) أو [Gradle](https://spring.io/guides/gs/gradle/). يمكنك بناء ملف jar وتشغيله من سطر الأوامر (ينبغي أن يعمل جيداً مع Java 17 أو أحدث):
+
+```bash
+git clone https://github.com/spring-projects/spring-petclinic.git
+cd spring-petclinic
+./mvnw package
+java -jar target/*.jar
+```
+
+(على نظام ويندوز، أو إذا لم يقم الـ shell بتوسيع نمط النجمة، قد تحتاج إلى تحديد اسم ملف الـ JAR بشكل صريح في نهاية الأمر.)
+
+بعدها يمكنك الوصول إلى Petclinic عبر العنوان: <http://localhost:8080/>.
+
+<img width="1042" alt="petclinic-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">
+
+كما يمكنك تشغيله مباشرة باستخدام Maven عبر إضافة ملحق Spring Boot الخاص بـ Maven. إذا قمت بذلك، فسيقوم بالتقاط أي تغييرات تجريها على المشروع مباشرة (التغييرات على ملفات Java تحتاج أيضاً إلى عملية compile — معظم المطورين يستخدمون IDE لهذا الغرض):
+
+```bash
+./mvnw spring-boot:run
+```
+
+ملاحظة: إذا كنت تفضّل استخدام Gradle، يمكنك بناء التطبيق باستخدام `./gradlew build` والبحث عن ملف jar في `build/libs`.
+
+## بناء حاوية (Container)
+
+لا يوجد ملف `Dockerfile` في هذا المشروع. يمكنك بناء صورة حاوية (إذا كان لديك خدمة Docker تعمل) باستخدام ملحق البناء الخاص بـ Spring Boot:
+
+```bash
+./mvnw spring-boot:build-image
+```
+
+## في حال وجدت خطأً أو كان لديك اقتراح لتحسين Spring Petclinic
+
+متعقّب القضايا متاح [هنا](https://github.com/spring-projects/spring-petclinic/issues).
+
+## تهيئة قاعدة البيانات
+
+في التهيئة الافتراضية، يستخدم Petclinic قاعدة بيانات داخل الذاكرة (H2) يتم تهيئتها بالبيانات عند بدء التشغيل. كما أن لوحة تحكم H2 متاحة على `http://localhost:8080/h2-console`، ومن الممكن تفقد محتوى قاعدة البيانات باستخدام رابط `jdbc:h2:mem:<uuid>`. يتم طباعة الـ UUID عند بدء التشغيل في وحدة التحكم.
+
+يوجد إعداد مشابه لكل من MySQL وPostgreSQL إذا كانت هناك حاجة لقاعدة بيانات دائمة. انتبه إلى أنه في كل مرة تغيّر فيها نوع قاعدة البيانات، يجب تشغيل التطبيق بملف تعريف (Profile) مختلف: استخدم `spring.profiles.active=mysql` من أجل MySQL أو `spring.profiles.active=postgres` من أجل PostgreSQL. راجع [توثيق Spring Boot](https://docs.spring.io/spring-boot/how-to/properties-and-configuration.html#howto.properties-and-configuration.set-active-spring-profiles) لمزيد من التفاصيل حول كيفية ضبط الملف التعريفي النشط.
+
+يمكنك تشغيل MySQL أو PostgreSQL محلياً باستخدام أي مُثبّت يناسب نظام التشغيل لديك أو استخدام Docker:
+
+```bash
+docker run -e MYSQL_USER=petclinic -e MYSQL_PASSWORD=petclinic -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=petclinic -p 3306:3306 mysql:9.2
+```
+
+أو
+
+```bash
+docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 postgres:17.5
+```
+
+يتوفر توثيق إضافي لكل من [MySQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/mysql/petclinic_db_setup_mysql.txt) و[PostgreSQL](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources/db/postgres/petclinic_db_setup_postgres.txt).
+
+بدلاً من استخدام أمر `docker` بشكل مباشر، يمكنك أيضاً استخدام ملف `docker-compose.yml` المرفق لبدء حاويات قواعد البيانات. كل واحدة لديها خدمة تحمل اسم ملف تعريف Spring:
+
+```bash
+docker compose up mysql
+```
+
+أو
+
+```bash
+docker compose up postgres
+```
+
+## تطبيقات الاختبار
+
+خلال وقت التطوير، نوصي باستخدام تطبيقات الاختبار المُعدة كدوال `main()` ضمن `PetClinicIntegrationTests` (باستخدام قاعدة البيانات الافتراضية H2 مع إضافة Spring Boot Devtools)، و`MySqlTestApplication` و`PostgresIntegrationTests`. تم إعداد هذه التطبيقات بحيث يمكنك تشغيلها داخل بيئة التطوير (IDE) للحصول على تغذية راجعة سريعة، وكذلك تشغيل نفس الأصناف كاختبارات تكامل مقابل قاعدة البيانات المعنية. تستخدم اختبارات التكامل الخاصة بـ MySQL مكتبة Testcontainers لبدء قاعدة البيانات داخل حاوية Docker، بينما تستخدم اختبارات Postgres أداة Docker Compose لنفس الغرض.
+
+## تجميع ملفات CSS
+
+يوجد ملف `petclinic.css` ضمن `src/main/resources/static/resources/css`. تم توليده من المصدر `petclinic.scss` مع دمجه مع مكتبة [Bootstrap](https://getbootstrap.com/). إذا أجريت تغييرات على ملفات `scss` أو قمت بترقية Bootstrap، فستحتاج إلى إعادة تجميع موارد CSS باستخدام ملف Maven التعريفي "css"، أي عبر الأمر: `./mvnw package -P css`. لا يوجد ملف تعريفي مماثل في Gradle لتجميع CSS.
+
+## العمل مع Petclinic في بيئة التطوير (IDE)
+
+### المتطلبات
+
+يجب تثبيت العناصر التالية على نظامك:
+
+- Java 17 أو أحدث (مجموعة تطوير JDK كاملة، وليس JRE فقط)
+- [أداة سطر أوامر Git](https://help.github.com/articles/set-up-git)
+- بيئة التطوير المفضلة لديك:
+  - Eclipse مع إضافة m2e. ملاحظة: عندما تكون m2e متاحة، سترى أيقونة m2 في مربع الحوار `Help -> About`. إذا لم تكن موجودة، اتبع خطوات التثبيت [هنا](https://www.eclipse.org/m2e/)
+  - [Spring Tools Suite](https://spring.io/tools) (STS)
+  - [IntelliJ IDEA](https://www.jetbrains.com/idea/)
+  - [VS Code](https://code.visualstudio.com)
+
+### الخطوات
+
+1. من سطر الأوامر نفّذ:
+
+    ```bash
+    git clone https://github.com/spring-projects/spring-petclinic.git
+    ```
+
+1. داخل Eclipse أو STS:
+
+    افتح المشروع عبر `File -> Import -> Maven -> Existing Maven project`، ثم اختر الدليل الجذر للمستودع المستنسخ.
+
+    بعد ذلك إما أن تبني عبر سطر الأوامر `./mvnw generate-resources` أو تستخدم مُشغّل Eclipse (انقر يميناً على المشروع ثم `Run As -> Maven install`) لتوليد ملفات CSS. شغّل الدالة الرئيسية للتطبيق بالنقر يميناً على الصنف واختيار `Run As -> Java Application`.
+
+1. داخل IntelliJ IDEA:
+
+    من القائمة الرئيسية اختر `File -> Open` وحدد ملف [pom.xml](pom.xml) الخاص بـ Petclinic. ثم انقر على زر `Open`.
+
+    - يتم توليد ملفات CSS من خلال بناء Maven. يمكنك توليدها عبر سطر الأوامر `./mvnw generate-resources` أو بالنقر يميناً على مشروع `spring-petclinic` ثم `Maven -> Generates sources and Update Folders`.
+
+    - ينبغي أن يتم إنشاء إعداد تشغيل باسم `PetClinicApplication` لك تلقائياً إذا كنت تستخدم إصدار Ultimate حديث. وإلا، شغّل التطبيق بالنقر يميناً على الصنف الرئيسي `PetClinicApplication` واختيار `Run 'PetClinicApplication'`.
+
+1. تصفح تطبيق Petclinic
+
+    قم بزيارة [http://localhost:8080](http://localhost:8080) في متصفحك.
+
+## تبحث عن شيء محدد؟
+
+| تهيئة Spring Boot | الفئة أو ملفات خصائص Java |
+|-------------------|---------------------------|
+| الصنف الرئيسي | [PetClinicApplication](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/PetClinicApplication.java) |
+| ملفات الخصائص | [application.properties](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/resources) |
+| التخزين المؤقت (Caching) | [CacheConfiguration](https://github.com/spring-projects/spring-petclinic/blob/main/src/main/java/org/springframework/samples/petclinic/system/CacheConfiguration.java) |
+
+## فروع ونسخ متشعبة مثيرة للاهتمام لتطبيق Spring Petclinic
+
+الفرع "main" من Spring Petclinic في منظمة GitHub [spring-projects](https://github.com/spring-projects/spring-petclinic) هو التطبيق "القياسي" المبني على Spring Boot وThymeleaf. هناك [عدد كبير من التفرعات](https://spring-petclinic.github.io/docs/forks.html) في منظمة GitHub [spring-petclinic](https://github.com/spring-petclinic). إذا كنت مهتماً باستخدام مكدس تقني مختلف لبناء Pet Clinic، فالرجاء الانضمام إلى المجتمع هناك.
+
+## التفاعل مع مشاريع مفتوحة المصدر أخرى
+
+من أفضل جوانب العمل على تطبيق Spring Petclinic أننا نملك فرصة للتواصل المباشر مع العديد من مشاريع المصادر المفتوحة. لقد وجدنا أخطاء/واقترحنا تحسينات في مواضيع متعددة مثل Spring وSpring Data وBean Validation وحتى Eclipse! وفي كثير من الحالات، تم إصلاحها/تنفيذها خلال أيام قليلة.
+إليك قائمة ببعضها:
+
+| الاسم | القضية |
+|------|--------|
+| Spring JDBC: تبسيط استخدام NamedParameterJdbcTemplate | [SPR-10256](https://github.com/spring-projects/spring-framework/issues/14889) و[SPR-10257](https://github.com/spring-projects/spring-framework/issues/14890) |
+| Bean Validation / Hibernate Validator: تبسيط تبعيات Maven والتوافقية العكسية | [HV-790](https://hibernate.atlassian.net/browse/HV-790) و[HV-792](https://hibernate.atlassian.net/browse/HV-792) |
+| Spring Data: توفير مرونة أكبر عند العمل مع استعلامات JPQL | [DATAJPA-292](https://github.com/spring-projects/spring-data-jpa/issues/704) |
+
+## المساهمة
+
+يُعد [متعقّب القضايا](https://github.com/spring-projects/spring-petclinic/issues) القناة المفضلة لبلاغات الأخطاء وطلبات الميزات وتقديم طلبات السحب (Pull Requests).
+
+بالنسبة لطلبات السحب، تتوفر تفضيلات المحرّر ضمن [editor config](.editorconfig) لتسهيل الاستخدام في محررات النصوص الشائعة. اقرأ المزيد وحمّل الإضافات من <https://editorconfig.org>. يجب أن تتضمن جميع الالتزامات (commits) فقرة __Signed-off-by__ في نهاية رسالة الالتزام للدلالة على موافقة المساهم على شهادة مطوّر البرمجيات (Developer Certificate of Origin).
+لمزيد من التفاصيل، يرجى الرجوع إلى تدوينة:
+[Hello DCO, Goodbye CLA: Simplifying Contributions to Spring](https://spring.io/blog/2025/01/06/hello-dco-goodbye-cla-simplifying-contributions-to-spring).
+
+## الترخيص
+
+يتم إصدار تطبيق Spring PetClinic النموذجي بموجب الإصدار 2.0 من [رخصة Apache](https://www.apache.org/licenses/LICENSE-2.0).
