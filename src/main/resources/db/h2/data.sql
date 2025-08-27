@@ -22,16 +22,16 @@ INSERT INTO types VALUES (default, 'snake');
 INSERT INTO types VALUES (default, 'bird');
 INSERT INTO types VALUES (default, 'hamster');
 
-INSERT INTO owners VALUES (default, 'George', 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'Engineer');
-INSERT INTO owners VALUES (default, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'Teacher');
-INSERT INTO owners VALUES (default, 'Eduardo', 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'Accountant');
-INSERT INTO owners VALUES (default, 'Harold', 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'Lawyer');
-INSERT INTO owners VALUES (default, 'Peter', 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'Doctor');
-INSERT INTO owners VALUES (default, 'Jean', 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'Nurse');
-INSERT INTO owners VALUES (default, 'Jeff', 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'Programmer');
-INSERT INTO owners VALUES (default, 'Maria', 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'Veterinarian');
-INSERT INTO owners VALUES (default, 'David', 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'Architect');
-INSERT INTO owners VALUES (default, 'Carlos', 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'Chef');
+INSERT INTO owners VALUES (default, 'George', NULL, 'Franklin', '110 W. Liberty St.', 'Madison', '6085551023', 'Engineer');
+INSERT INTO owners VALUES (default, 'Betty', NULL, 'Davis', '638 Cardinal Ave.', 'Sun Prairie', '6085551749', 'Teacher');
+INSERT INTO owners VALUES (default, 'Eduardo', NULL, 'Rodriquez', '2693 Commerce St.', 'McFarland', '6085558763', 'Accountant');
+INSERT INTO owners VALUES (default, 'Harold', NULL, 'Davis', '563 Friendly St.', 'Windsor', '6085553198', 'Lawyer');
+INSERT INTO owners VALUES (default, 'Peter', NULL, 'McTavish', '2387 S. Fair Way', 'Madison', '6085552765', 'Doctor');
+INSERT INTO owners VALUES (default, 'Jean', NULL, 'Coleman', '105 N. Lake St.', 'Monona', '6085552654', 'Nurse');
+INSERT INTO owners VALUES (default, 'Jeff', NULL, 'Black', '1450 Oak Blvd.', 'Monona', '6085555387', 'Programmer');
+INSERT INTO owners VALUES (default, 'Maria', NULL, 'Escobito', '345 Maple St.', 'Madison', '6085557683', 'Veterinarian');
+INSERT INTO owners VALUES (default, 'David', NULL, 'Schroeder', '2749 Blackhawk Trail', 'Madison', '6085559435', 'Architect');
+INSERT INTO owners VALUES (default, 'Carlos', NULL, 'Estaban', '2335 Independence La.', 'Waunakee', '6085555487', 'Chef');
 
 INSERT INTO pets VALUES (default, 'Leo', '2010-09-07', 1, 1);
 INSERT INTO pets VALUES (default, 'Basil', '2012-08-06', 6, 2);

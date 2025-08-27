@@ -16,6 +16,7 @@
 package org.springframework.samples.petclinic.owner;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -80,6 +81,21 @@ public class Pet extends NamedEntity {
 
 	public void addVisit(Visit visit) {
 		getVisits().add(visit);
+	}
+
+	/**
+	 * Returns the pet's age in full years based on the birth date and current date. If
+	 * birth date is null or in the future, returns 0.
+	 */
+	public int getAge() {
+		if (this.birthDate == null) {
+			return 0;
+		}
+		LocalDate today = LocalDate.now();
+		if (this.birthDate.isAfter(today)) {
+			return 0;
+		}
+		return Period.between(this.birthDate, today).getYears();
 	}
 
 }
