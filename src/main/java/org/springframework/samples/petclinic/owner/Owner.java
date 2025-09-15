@@ -47,17 +47,6 @@ import jakarta.validation.constraints.NotBlank;
 @Table(name = "owners")
 public class Owner extends Person {
 
-	@Column(name = "nick_name")
-	private String nickName;
-
-	public String getNickName() {
-		return this.nickName;
-	}
-
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
-	}
-
 	@Column(name = "address")
 	@NotBlank
 	private String address;
@@ -70,9 +59,6 @@ public class Owner extends Person {
 	@NotBlank
 	@Pattern(regexp = "\\d{10}", message = "{telephone.invalid}")
 	private String telephone;
-
-	@Column(name = "occupation")
-	private String occupation;
 
 	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "owner_id")
@@ -101,14 +87,6 @@ public class Owner extends Person {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
-	}
-
-	public String getOccupation() {
-		return this.occupation;
-	}
-
-	public void setOccupation(String occupation) {
-		this.occupation = occupation;
 	}
 
 	public List<Pet> getPets() {
@@ -171,11 +149,9 @@ public class Owner extends Person {
 			.append("new", this.isNew())
 			.append("lastName", this.getLastName())
 			.append("firstName", this.getFirstName())
-			.append("nickName", this.getNickName())
 			.append("address", this.address)
 			.append("city", this.city)
 			.append("telephone", this.telephone)
-			.append("occupation", this.occupation)
 			.toString();
 	}
 

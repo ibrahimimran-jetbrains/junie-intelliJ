@@ -34,15 +34,12 @@ CREATE TABLE types (
 CREATE INDEX types_name ON types (name);
 
 CREATE TABLE owners (
-  id          INTEGER IDENTITY PRIMARY KEY,
-  first_name  VARCHAR(30),
-  nick_name VARCHAR(30),
-  last_name   VARCHAR_IGNORECASE(30),
-  address     VARCHAR(255),
-  city        VARCHAR(80),
-  telephone   VARCHAR(20),
-  phone_number VARCHAR(20),
-  occupation  VARCHAR(100)
+  id         INTEGER IDENTITY PRIMARY KEY,
+  first_name VARCHAR(30),
+  last_name  VARCHAR_IGNORECASE(30),
+  address    VARCHAR(255),
+  city       VARCHAR(80),
+  telephone  VARCHAR(20)
 );
 CREATE INDEX owners_last_name ON owners (last_name);
 

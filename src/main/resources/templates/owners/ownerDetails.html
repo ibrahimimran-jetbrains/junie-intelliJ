@@ -17,7 +17,7 @@
   <table class="table table-striped" th:object="${owner}">
     <tr>
       <th th:text="#{name}">Name</th>
-      <td><b><span th:text="*{firstName}"></span><span th:if="*{nickName}" th:text="*{' ' + nickName}"></span><span th:text="*{' ' + lastName}"></span></b></td>
+      <td><b th:text="*{firstName + ' ' + lastName}"></b></td>
     </tr>
     <tr>
       <th th:text="#{address}">Address</th>
@@ -30,10 +30,6 @@
     <tr>
       <th th:text="#{telephone}">Telephone</th>
       <td th:text="*{telephone}"></td>
-    </tr>
-    <tr>
-      <th th:text="#{occupation}">Occupation</th>
-      <td th:text="*{occupation}"></td>
     </tr>
   </table>
 
@@ -53,10 +49,7 @@
       <td valign="top">
         <dl class="dl-horizontal">
           <dt th:text="#{name}">Name</dt>
-          <dd>
-            <span th:text="${pet.name}"></span>
-            <span th:if="${pet.age > 0}"> (<span th:text="${pet.age}"></span> <span th:text="${pet.age == 1 ? 'year' : 'years'}"></span>)</span>
-          </dd>
+          <dd th:text="${pet.name}"></dd>
           <dt th:text="#{birthDate}">Birth Date</dt>
           <dd th:text="${#temporals.format(pet.birthDate, 'yyyy-MM-dd')}"></dd>
           <dt th:text="#{type}">Type</dt>
