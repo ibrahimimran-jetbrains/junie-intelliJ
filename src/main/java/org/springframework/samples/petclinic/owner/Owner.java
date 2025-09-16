@@ -65,6 +65,149 @@ public class Owner extends Person {
 	@OrderBy("name")
 	private final List<Pet> pets = new ArrayList<>();
 
+	/**
+	 * Default constructor for JPA and backward compatibility.
+	 */
+	public Owner() {
+		super();
+	}
+
+	/**
+	 * Private constructor for Builder pattern.
+	 */
+	private Owner(Builder builder) {
+		super();
+		this.setFirstName(builder.firstName);
+		this.setLastName(builder.lastName);
+		this.address = builder.address;
+		this.city = builder.city;
+		this.telephone = builder.telephone;
+		if (builder.id != null) {
+			this.setId(builder.id);
+		}
+	}
+
+	/**
+	 * Creates a new Builder for constructing Owner instances.
+	 * @return a new Builder instance
+	 */
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	/**
+	 * Builder class for creating Owner instances with validation.
+	 */
+	public static class Builder {
+
+		private Integer id;
+
+		private String firstName;
+
+		private String lastName;
+
+		private String address;
+
+		private String city;
+
+		private String telephone;
+
+		private Builder() {
+		}
+
+		/**
+		 * Sets the ID for the Owner.
+		 * @param id the ID to set
+		 * @return this Builder instance for method chaining
+		 */
+		public Builder id(Integer id) {
+			this.id = id;
+			return this;
+		}
+
+		/**
+		 * Sets the first name for the Owner.
+		 * @param firstName the first name to set
+		 * @return this Builder instance for method chaining
+		 */
+		public Builder firstName(String firstName) {
+			this.firstName = firstName;
+			return this;
+		}
+
+		/**
+		 * Sets the last name for the Owner.
+		 * @param lastName the last name to set
+		 * @return this Builder instance for method chaining
+		 */
+		public Builder lastName(String lastName) {
+			this.lastName = lastName;
+			return this;
+		}
+
+		/**
+		 * Sets the address for the Owner.
+		 * @param address the address to set
+		 * @return this Builder instance for method chaining
+		 */
+		public Builder address(String address) {
+			this.address = address;
+			return this;
+		}
+
+		/**
+		 * Sets the city for the Owner.
+		 * @param city the city to set
+		 * @return this Builder instance for method chaining
+		 */
+		public Builder city(String city) {
+			this.city = city;
+			return this;
+		}
+
+		/**
+		 * Sets the telephone for the Owner.
+		 * @param telephone the telephone to set
+		 * @return this Builder instance for method chaining
+		 */
+		public Builder telephone(String telephone) {
+			this.telephone = telephone;
+			return this;
+		}
+
+		/**
+		 * Builds and validates the Owner instance.
+		 * @return a new Owner instance
+		 * @throws IllegalArgumentException if validation fails
+		 */
+		public Owner build() {
+			validateFields();
+			return new Owner(this);
+		}
+
+		private void validateFields() {
+			if (firstName == null || firstName.trim().isEmpty()) {
+				throw new IllegalArgumentException("First name is required and cannot be blank");
+			}
+			if (lastName == null || lastName.trim().isEmpty()) {
+				throw new IllegalArgumentException("Last name is required and cannot be blank");
+			}
+			if (address == null || address.trim().isEmpty()) {
+				throw new IllegalArgumentException("Address is required and cannot be blank");
+			}
+			if (city == null || city.trim().isEmpty()) {
+				throw new IllegalArgumentException("City is required and cannot be blank");
+			}
+			if (telephone == null || telephone.trim().isEmpty()) {
+				throw new IllegalArgumentException("Telephone is required and cannot be blank");
+			}
+			if (telephone != null && !telephone.matches("\\d{10}")) {
+				throw new IllegalArgumentException("Telephone must be exactly 10 digits");
+			}
+		}
+
+	}
+
 	public String getAddress() {
 		return this.address;
 	}
