@@ -24,12 +24,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.aot.DisabledInAotMode;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +70,9 @@ class OwnerControllerTests {
 	@MockitoBean
 	private OwnerRepository owners;
 
+	@MockitoBean
+	private VisitRepository visits;
+
 	private Owner george() {
 		Owner george = new Owner();
 		george.setId(TEST_OWNER_ID);
@@ -98,6 +103,15 @@ class OwnerControllerTests {
 		Visit visit = new Visit();
 		visit.setDate(LocalDate.now());
 		george.getPet("Max").getVisits().add(visit);
+
+		// Mock VisitRepository to return visits with appropriate sorting
+		given(this.visits.findByPetId(eq(1), any(Sort.class))).willAnswer(invocation -> {
+			Sort sort = invocation.getArgument(1);
+			List<Visit> visitList = new ArrayList<>(george.getPet("Max").getVisits());
+			// Return the visits (sorting is handled by the actual repository in real
+			// scenario)
+			return visitList;
+		});
 
 	}
 
@@ -246,6 +260,35 @@ class OwnerControllerTests {
 			.andExpect(status().is3xxRedirection())
 			.andExpect(redirectedUrl("/owners/" + pathOwnerId + "/edit"))
 			.andExpect(flash().attributeExists("error"));
+	}
+
+	@Test
+	void testShowOwnerWithAscendingSort() throws Exception {
+		mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID).param("sortOrder", "asc"))
+			.andExpect(status().isOk())
+			.andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
+			.andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
+			.andExpect(model().attribute("sortOrder", is("asc")))
+			.andExpect(view().name("owners/ownerDetails"));
+	}
+
+	@Test
+	void testShowOwnerWithDescendingSort() throws Exception {
+		mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID).param("sortOrder", "desc"))
+			.andExpect(status().isOk())
+			.andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
+			.andExpect(model().attribute("owner", hasProperty("firstName", is("George"))))
+			.andExpect(model().attribute("sortOrder", is("desc")))
+			.andExpect(view().name("owners/ownerDetails"));
+	}
+
+	@Test
+	void testShowOwnerWithDefaultSort() throws Exception {
+		mockMvc.perform(get("/owners/{ownerId}", TEST_OWNER_ID))
+			.andExpect(status().isOk())
+			.andExpect(model().attribute("owner", hasProperty("lastName", is("Franklin"))))
+			.andExpect(model().attribute("sortOrder", is("asc")))
+			.andExpect(view().name("owners/ownerDetails"));
 	}
 
 }

@@ -21,6 +21,7 @@ import java.util.Optional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -50,8 +51,11 @@ class OwnerController {
 
 	private final OwnerRepository owners;
 
-	public OwnerController(OwnerRepository owners) {
+	private final VisitRepository visits;
+
+	public OwnerController(OwnerRepository owners, VisitRepository visits) {
 		this.owners = owners;
+		this.visits = visits;
 	}
 
 	@InitBinder
@@ -158,15 +162,27 @@ class OwnerController {
 	/**
 	 * Custom handler for displaying an owner.
 	 * @param ownerId the ID of the owner to display
+	 * @param sortOrder the sort order for visits (asc or desc), defaults to asc
 	 * @return a ModelMap with the model attributes for the view
 	 */
 	@GetMapping("/owners/{ownerId}")
-	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId) {
+	public ModelAndView showOwner(@PathVariable("ownerId") int ownerId,
+			@RequestParam(defaultValue = "asc") String sortOrder) {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		Optional<Owner> optionalOwner = this.owners.findById(ownerId);
 		Owner owner = optionalOwner.orElseThrow(() -> new IllegalArgumentException(
 				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
+
+		// Apply sorting to visits for each pet
+		Sort sort = sortOrder.equalsIgnoreCase("desc") ? Sort.by("date").descending() : Sort.by("date").ascending();
+		for (Pet pet : owner.getPets()) {
+			List<Visit> sortedVisits = this.visits.findByPetId(pet.getId(), sort);
+			pet.getVisits().clear();
+			pet.getVisits().addAll(sortedVisits);
+		}
+
 		mav.addObject(owner);
+		mav.addObject("sortOrder", sortOrder);
 		return mav;
 	}
 

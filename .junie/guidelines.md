@@ -20,3 +20,14 @@
 * **Execution**: Before submitting any changes, ensure all tests pass by running the project's Maven wrapper command: `./mvnw test`.
 
 ---
+
+## 📋 Task List Management
+
+* **Location**: All project tasks are tracked in `docs/tasksCompleted.md` with enumerated checkboxes.
+* **Status Updates**: Mark completed tasks by changing `[ ]` to `[x]` and update the progress summary section.
+* **Task References**: Reference specific commit hashes or pull request numbers in task comments for traceability.
+* **Progress Tracking**: Update completion percentages after each work session to maintain accurate project status.
+* **Task Dependencies**: Complete tasks in sequential order within each phase unless explicitly noted as independent.
+* **Documentation**: Add implementation notes or deviations directly in the task list for future reference.
+
+---

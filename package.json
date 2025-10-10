@@ -1,0 +1,26 @@
+{
+  "name": "spring-petclinic-playwright-tests",
+  "version": "1.0.0",
+  "description": "Playwright UI tests for Spring PetClinic micro-frontend",
+  "main": "index.js",
+  "scripts": {
+    "test": "playwright test",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:ui": "playwright test --ui",
+    "test:report": "playwright show-report",
+    "test:codegen": "playwright codegen http://localhost:8080"
+  },
+  "keywords": [
+    "playwright",
+    "testing",
+    "e2e",
+    "petclinic"
+  ],
+  "author": "",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "@playwright/test": "^1.40.0",
+    "@types/node": "^20.10.0"
+  }
+}

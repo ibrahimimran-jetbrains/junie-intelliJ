@@ -60,7 +60,19 @@
         <table class="table-condensed">
           <thead>
             <tr>
-              <th th:text="#{visitDate}">Visit Date</th>
+              <th>
+                <span th:text="#{visitDate}">Visit Date</span>
+                <a th:href="@{/owners/{ownerId}(ownerId=${owner.id}, sortOrder='asc')}" 
+                   title="Sort Ascending"
+                   th:classappend="${sortOrder == 'asc'} ? 'text-primary' : ''">
+                  ↑
+                </a>
+                <a th:href="@{/owners/{ownerId}(ownerId=${owner.id}, sortOrder='desc')}" 
+                   title="Sort Descending"
+                   th:classappend="${sortOrder == 'desc'} ? 'text-primary' : ''">
+                  ↓
+                </a>
+              </th>
               <th th:text="#{description}">Description</th>
             </tr>
           </thead>
