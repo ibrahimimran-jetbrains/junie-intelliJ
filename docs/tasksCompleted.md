@@ -53,10 +53,10 @@ This document tracks the implementation progress for standardizing validation ap
 - [ ] 35. Create unit tests for all custom validation annotations
 
 ### 2.3 Pet Validator
-- [ ] 36. Create `PetValidator` component class
-- [ ] 37. Implement pet-specific validation rules
-- [ ] 38. Add pet name and type validation logic
-- [ ] 39. Create unit tests for `PetValidator`
+- [x] 36. Create `PetValidator` component class
+- [x] 37. Implement pet-specific validation rules
+- [x] 38. Add pet name and type validation logic
+- [x] 39. Create unit tests for `PetValidator`
 
 ## Phase 3: Service Layer Integration (Priority: Medium)
 
@@ -159,6 +159,13 @@ This document tracks the implementation progress for standardizing validation ap
 - **In Progress**: 0
 - **Remaining**: 82
 - **Overall Progress**: 18%
+
+### Additional Tasks (outside primary validation plan)
+- [x] Display pet age next to pet name on Owner Details page (UI + model change). Verified by unit tests and full test suite.
+  - Notes: Added Pet.getAge() derived property and updated owners/ownerDetails.html to show "Name (X years)".
+  - Tests: Added PetAgeTests covering edge cases.
+  - Date: 2025-10-18
+  - Reference: Changes in this work session.
 
 ## Phase 1 Implementation Notes
 - **Foundation Setup Completed**: Custom exception hierarchy, global exception handler, and error response DTOs are fully implemented and tested

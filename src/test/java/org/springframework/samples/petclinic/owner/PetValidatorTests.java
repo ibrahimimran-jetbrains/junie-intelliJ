@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2024 the original author or authors.
+ * Copyright 2012-2025 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import org.springframework.validation.MapBindingResult;
 import java.time.LocalDate;
 import java.util.HashMap;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -74,11 +75,22 @@ public class PetValidatorTests {
 		assertFalse(errors.hasErrors());
 	}
 
+	@Test
+	void testSupportsWithPetClass() {
+		assertTrue(petValidator.supports(Pet.class));
+	}
+
+	@Test
+	void testSupportsWithNonPetClass() {
+		assertFalse(petValidator.supports(String.class));
+		assertFalse(petValidator.supports(Owner.class));
+	}
+
 	@Nested
 	class ValidateHasErrors {
 
 		@Test
-		void testValidateWithInvalidPetName() {
+		void testValidateWithEmptyPetName() {
 			petType.setName(petTypeName);
 			pet.setName("");
 			pet.setType(petType);
@@ -87,10 +99,37 @@ public class PetValidatorTests {
 			petValidator.validate(pet, errors);
 
 			assertTrue(errors.hasFieldErrors("name"));
+			assertEquals("required", errors.getFieldError("name").getCode());
 		}
 
 		@Test
-		void testValidateWithInvalidPetType() {
+		void testValidateWithNullPetName() {
+			petType.setName(petTypeName);
+			pet.setName(null);
+			pet.setType(petType);
+			pet.setBirthDate(petBirthDate);
+
+			petValidator.validate(pet, errors);
+
+			assertTrue(errors.hasFieldErrors("name"));
+			assertEquals("required", errors.getFieldError("name").getCode());
+		}
+
+		@Test
+		void testValidateWithWhitespacePetName() {
+			petType.setName(petTypeName);
+			pet.setName("   ");
+			pet.setType(petType);
+			pet.setBirthDate(petBirthDate);
+
+			petValidator.validate(pet, errors);
+
+			assertTrue(errors.hasFieldErrors("name"));
+			assertEquals("required", errors.getFieldError("name").getCode());
+		}
+
+		@Test
+		void testValidateWithInvalidPetTypeForNewPet() {
 			pet.setName(petName);
 			pet.setType(null);
 			pet.setBirthDate(petBirthDate);
@@ -98,6 +137,22 @@ public class PetValidatorTests {
 			petValidator.validate(pet, errors);
 
 			assertTrue(errors.hasFieldErrors("type"));
+			assertEquals("required", errors.getFieldError("type").getCode());
+		}
+
+		@Test
+		void testValidateWithInvalidPetTypeForExistingPet() {
+			// Set an ID to make the pet "existing" (not new)
+			pet.setId(1);
+			pet.setName(petName);
+			pet.setType(null);
+			pet.setBirthDate(petBirthDate);
+
+			petValidator.validate(pet, errors);
+
+			// Type is only required for new pets, so existing pets without type should
+			// pass
+			assertFalse(errors.hasFieldErrors("type"));
 		}
 
 		@Test
@@ -109,6 +164,23 @@ public class PetValidatorTests {
 
 			petValidator.validate(pet, errors);
 
+			assertTrue(errors.hasFieldErrors("birthDate"));
+			assertEquals("required", errors.getFieldError("birthDate").getCode());
+		}
+
+		@Test
+		void testValidateWithMultipleErrors() {
+			// All fields invalid
+			pet.setName(null);
+			pet.setType(null);
+			pet.setBirthDate(null);
+
+			petValidator.validate(pet, errors);
+
+			assertTrue(errors.hasErrors());
+			assertEquals(3, errors.getErrorCount());
+			assertTrue(errors.hasFieldErrors("name"));
+			assertTrue(errors.hasFieldErrors("type"));
 			assertTrue(errors.hasFieldErrors("birthDate"));
 		}
 
