@@ -150,8 +150,7 @@ public class PetValidatorTests {
 
 			petValidator.validate(pet, errors);
 
-			// Type is only required for new pets, so existing pets without type should
-			// pass
+			// Type is only required for new pets, so existing pets without type should pass
 			assertFalse(errors.hasFieldErrors("type"));
 		}
 

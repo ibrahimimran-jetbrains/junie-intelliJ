@@ -67,21 +67,6 @@ public class Pet extends NamedEntity {
 		return this.birthDate;
 	}
 
-	/**
-	 * Derived property: current age in full years based on birthDate and current date.
-	 * Returns 0 if birthDate is null or in the future.
-	 */
-	public int getAge() {
-		if (this.birthDate == null) {
-			return 0;
-		}
-		LocalDate today = LocalDate.now();
-		if (this.birthDate.isAfter(today)) {
-			return 0;
-		}
-		return Period.between(this.birthDate, today).getYears();
-	}
-
 	public PetType getType() {
 		return this.type;
 	}
@@ -96,6 +81,17 @@ public class Pet extends NamedEntity {
 
 	public void addVisit(Visit visit) {
 		getVisits().add(visit);
+	}
+
+	/**
+	 * Calculates the pet's age in years based on their birth date.
+	 * @return the age in years, or 0 if birth date is not set
+	 */
+	public int getAge() {
+		if (this.birthDate == null) {
+			return 0;
+		}
+		return Period.between(this.birthDate, LocalDate.now()).getYears();
 	}
 
 }

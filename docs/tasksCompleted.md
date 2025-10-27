@@ -160,13 +160,6 @@ This document tracks the implementation progress for standardizing validation ap
 - **Remaining**: 82
 - **Overall Progress**: 18%
 
-### Additional Tasks (outside primary validation plan)
-- [x] Display pet age next to pet name on Owner Details page (UI + model change). Verified by unit tests and full test suite.
-  - Notes: Added Pet.getAge() derived property and updated owners/ownerDetails.html to show "Name (X years)".
-  - Tests: Added PetAgeTests covering edge cases.
-  - Date: 2025-10-18
-  - Reference: Changes in this work session.
-
 ## Phase 1 Implementation Notes
 - **Foundation Setup Completed**: Custom exception hierarchy, global exception handler, and error response DTOs are fully implemented and tested
 - **Architecture**: Follows Spring Boot best practices with proper error codes, HTTP status mappings, and JSON serialization

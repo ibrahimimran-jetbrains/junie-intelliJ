@@ -53,3 +53,7 @@ _site/
 # Node modules
 node_modules/
 package-lock.json
+
+
+# Local command output logs (should never be committed)
+.output.txt
