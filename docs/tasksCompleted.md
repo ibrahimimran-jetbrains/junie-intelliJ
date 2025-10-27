@@ -371,3 +371,14 @@ npm run test:codegen
 - Update progress summary after completing tasks
 - Add comments or notes for any task-specific issues or deviations
 - Reference specific commit hashes or pull requests for completed tasks
+
+
+
+## CI Build and Formatting Fixes (Completed: 2025-10-27)
+
+- [x] Fix Gradle build and CI failures due to missing OpenAPI annotations and formatting checks
+  - Added compileOnly Swagger annotations dependency previously (see PR #30; head sha 352c27d)
+  - Removed malicious/accidentally committed file `iff_openapi.yaml` that violated NoHttp policy and broke Checkstyle
+  - Ran Spring Java Format tasks to fix `src/test/.../PetValidatorTests.java` formatting issues
+  - Verified `./gradlew check` and `./gradlew build` succeed locally on Java 17 / Spring Boot 3.5.0
+  - Notes: No production code logic changes. Only build config, formatting, and repository hygiene adjustments.
