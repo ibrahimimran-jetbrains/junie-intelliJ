@@ -38,6 +38,10 @@ dependencies {
   implementation 'org.springframework.boot:spring-boot-starter-validation'
   implementation 'javax.cache:cache-api'
   implementation 'jakarta.xml.bind:jakarta.xml.bind-api'
+  
+  // OpenAPI/Swagger annotations used in OwnerRestController
+  compileOnly 'io.swagger.core.v3:swagger-annotations:2.2.22'
+
   runtimeOnly 'org.springframework.boot:spring-boot-starter-actuator'
   runtimeOnly "org.webjars:webjars-locator-lite:${webjarsLocatorLiteVersion}"
   runtimeOnly "org.webjars.npm:bootstrap:${webjarsBootstrapVersion}"
