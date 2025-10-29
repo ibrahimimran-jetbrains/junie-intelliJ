@@ -198,6 +198,26 @@ Implemented sorting functionality for visit history by visit date with ascending
 **Testing:**
 - VisitRepositoryTests: 3 tests (ascending, descending, empty result)
 - OwnerControllerTests: 3 new tests (asc sort, desc sort, default sort)
+
+---
+
+## Arabic README Translation (Completed: 2025-10-27)
+
+### Implementation Summary
+Added an Arabic translation of the project README and linked language selector between English and Arabic versions at the top of both files.
+
+- Commit: pending merge (no hash at authoring time)
+- Related Issue: "translate readme.md to arabic"
+
+### Tasks Completed
+- [x] 1. Created `README.ar.md` with full Arabic translation equivalent to `README.md` as of 2025-10-27
+- [x] 2. Added language switcher links to `README.md` and `README.ar.md`
+- [x] 3. Verified links and Markdown rendering locally
+- [x] 4. Documented the change in `docs/tasksCompleted.md` with date and context
+
+### Notes
+- The translation preserves technical terms (e.g., Spring Boot, Maven, Gradle) and keeps code blocks unchanged.
+- No application code was modified; no impact on build or tests is expected.
 - All tests passing: 144 tests, 0 failures, 0 errors
 
 ### Files Modified
