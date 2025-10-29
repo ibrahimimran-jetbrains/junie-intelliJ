@@ -372,6 +372,19 @@ npm run test:codegen
 - Add comments or notes for any task-specific issues or deviations
 - Reference specific commit hashes or pull requests for completed tasks
 
+---
+
+## Documentation Translation (Completed: 2025-10-29)
+
+- [x] 1. إنشاء ترجمة عربية كاملة لملف README.md باسم `README.ar.md`
+- [x] 2. إضافة مُبدّل لغة في `README.md` يربط إلى الترجمة العربية
+- [x] 3. توثيق المهمة هنا وربطها بتاريخ الإكمال
+
+### ملاحظات التنفيذ
+- تمت المحافظة على كتل الأوامر والروابط كما هي، مع ترجمة الشروح فقط
+- لا تغييرات على الشفرة المصدرية أو الإعدادات
+- سيتم تحديث ترجمات إضافية مستقبلًا عند الحاجة
+
 
 
 ## CI Build and Formatting Fixes (Completed: 2025-10-27)
