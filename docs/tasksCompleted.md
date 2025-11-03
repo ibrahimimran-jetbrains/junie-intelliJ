@@ -373,6 +373,15 @@ npm run test:codegen
 - Add comments or notes for any task-specific issues or deviations
 - Reference specific commit hashes or pull requests for completed tasks
 
+---
+
+## Documentation Localization (2025-11-03)
+
+- [x] Add Hungarian translation of README (README.hu.md) and keep original intact
+  - Rationale: Provide localized documentation without impacting existing links to README.md
+  - Files: README.hu.md (new)
+  - Reference: Internal task from issue.md on 2025-11-03
+
 
 
 ## CI Build and Formatting Fixes (Completed: 2025-10-27)
