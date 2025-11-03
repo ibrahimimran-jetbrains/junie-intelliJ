@@ -1,7 +1,8 @@
 # Code Validation Standardization - Task List
 
 ## Overview
-This document tracks the implementation progress for standardizing validation approaches across the Spring PetClinic project based on the detailed plan in `codeValidation.md`.
+This document tracks the implementation progress for standardizing validation 
+approaches across the Spring PetClinic project based on the detailed plan in `codeValidation.md`.
 
 ## Phase 1: Foundation Setup (Priority: High)
 
