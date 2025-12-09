@@ -155,11 +155,11 @@ approaches across the Spring PetClinic project based on the detailed plan in `co
 ---
 
 ## Progress Summary
-- **Total Tasks**: 100
-- **Completed**: 19
+- **Total Tasks**: 101
+- **Completed**: 20
 - **In Progress**: 0
 - **Remaining**: 81
-- **Overall Progress**: 19%
+- **Overall Progress**: 19.8%
 
 ## Phase 1 Implementation Notes
 - **Foundation Setup Completed**: Custom exception hierarchy, global exception handler, and error response DTOs are fully implemented and tested
@@ -374,6 +374,13 @@ npm run test:codegen
 - Reference specific commit hashes or pull requests for completed tasks
 
 
+
+## Dokumentacija: Prevod README-a na hrvatski (Dovršeno: 2025-12-09)
+
+- [x] 101. Prevesti `README.md` na hrvatski jezik i zamijeniti postojeći sadržaj
+  - Napomena: Očuvani su svi linkovi, značke i isječci koda; napravljene su samo jezične izmjene.
+  - Testiranje: Nema promjena u izvornom kodu; cilj je dokumentacija. Pokrenut će se `./mvnw test` radi provjere integriteta builda.
+  - Reference: Promjena izvršena u ovoj sesiji (bez PR broja u trenutku ažuriranja).
 
 ## CI Build and Formatting Fixes (Completed: 2025-10-27)
 
