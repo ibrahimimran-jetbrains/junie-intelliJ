@@ -383,3 +383,15 @@ npm run test:codegen
   - Ran Spring Java Format tasks to fix `src/test/.../PetValidatorTests.java` formatting issues
   - Verified `./gradlew check` and `./gradlew build` succeed locally on Java 17 / Spring Boot 3.5.0
   - Notes: No production code logic changes. Only build config, formatting, and repository hygiene adjustments.
+
+---
+
+## README हिंदी अनुवाद (Completed: 2025-12-10)
+
+- [x] README.md का हिंदी अनुवाद तैयार किया — फ़ाइल: README.hi.md
+- [x] मुख्य README.md में भाषा स्विच लिंक जोड़ा: English | हिंदी
+- [x] दस्तावेज़ीकरण कार्य का रिकॉर्ड इस फ़ाइल में जोड़ा
+
+**Implementation Notes**
+- दस्तावेज़ीकरण-केवल परिवर्तन; कोड या बिल्ड कॉन्फ़िगरेशन में कोई बदलाव नहीं
+- संदर्भ: Junie ऑटोमेशन, 2025-12-10 12:12 (commit hash/PR number CI द्वारा उपलब्ध होने पर अपडेट किया जाएगा)
