@@ -17,7 +17,6 @@ package org.springframework.samples.petclinic.owner;
 
 import java.time.LocalDate;
 import java.util.Collection;
-import java.util.Optional;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -46,6 +45,8 @@ class PetController {
 
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
 
+	private static final PetValidator PET_VALIDATOR = new PetValidator();
+
 	private final OwnerRepository owners;
 
 	private final PetTypeRepository types;
@@ -64,7 +65,7 @@ class PetController {
 	public Owner findOwner(@PathVariable("ownerId") int ownerId) {
 		return this.owners.findById(ownerId)
 			.orElseThrow(() -> new IllegalArgumentException(
-				"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
+					"Owner not found with id: " + ownerId + ". Please ensure the ID is correct "));
 	}
 
 	@ModelAttribute("pet")
@@ -80,7 +81,7 @@ class PetController {
 
 	@InitBinder("pet")
 	public void initPetBinder(WebDataBinder dataBinder) {
-		dataBinder.setValidator(new PetValidator());
+		dataBinder.setValidator(PET_VALIDATOR);
 	}
 
 	@GetMapping("/pets/new")
@@ -94,10 +95,7 @@ class PetController {
 	public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
-		if (StringUtils.hasText(pet.getName()) && pet.isNew() && owner.getPet(pet.getName(), true) != null) {
-			result.rejectValue("name", "duplicate", "already exists");
-		}
-
+		validateDuplicatePetName(pet, owner, result);
 		validateBirthDate(pet, result);
 
 		if (result.hasErrors()) {
@@ -119,14 +117,7 @@ class PetController {
 	public String processUpdateForm(Owner owner, @Valid Pet pet, BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
-		// checking if the pet name already exists for the owner
-		if (StringUtils.hasText(pet.getName())) {
-			Pet existingPet = owner.getPet(pet.getName(), false);
-			if (existingPet != null && !existingPet.getId().equals(pet.getId())) {
-				result.rejectValue("name", "duplicate", "already exists");
-			}
-		}
-
+		validateDuplicatePetName(pet, owner, result);
 		validateBirthDate(pet, result);
 
 		if (result.hasErrors()) {
@@ -136,6 +127,21 @@ class PetController {
 		updatePetDetails(owner, pet);
 		redirectAttributes.addFlashAttribute("message", "Pet details has been edited");
 		return "redirect:/owners/{ownerId}";
+	}
+
+	/**
+	 * Validates if a pet name already exists for the owner.
+	 * @param pet The pet to validate
+	 * @param owner The owner of the pet
+	 * @param result The binding result to add errors to
+	 */
+	private void validateDuplicatePetName(Pet pet, Owner owner, BindingResult result) {
+		if (StringUtils.hasText(pet.getName())) {
+			Pet existingPet = owner.getPet(pet.getName(), pet.isNew());
+			if (existingPet != null && !existingPet.getId().equals(pet.getId())) {
+				result.rejectValue("name", "duplicate", "already exists");
+			}
+		}
 	}
 
 	/**
@@ -150,21 +156,15 @@ class PetController {
 	}
 
 	/**
-	 * Updates the pet details if it exists or adds a new pet to the owner.
+	 * Updates the existing pet's details and saves the owner.
 	 * @param owner The owner of the pet
 	 * @param pet The pet with updated details
 	 */
 	private void updatePetDetails(Owner owner, Pet pet) {
 		Pet existingPet = owner.getPet(pet.getId());
-		if (existingPet != null) {
-			// Update existing pet's properties
-			existingPet.setName(pet.getName());
-			existingPet.setBirthDate(pet.getBirthDate());
-			existingPet.setType(pet.getType());
-		}
-		else {
-			owner.addPet(pet);
-		}
+		existingPet.setName(pet.getName());
+		existingPet.setBirthDate(pet.getBirthDate());
+		existingPet.setType(pet.getType());
 		this.owners.save(owner);
 	}
 
