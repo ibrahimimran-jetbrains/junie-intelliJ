@@ -383,3 +383,12 @@ npm run test:codegen
   - Ran Spring Java Format tasks to fix `src/test/.../PetValidatorTests.java` formatting issues
   - Verified `./gradlew check` and `./gradlew build` succeed locally on Java 17 / Spring Boot 3.5.0
   - Notes: No production code logic changes. Only build config, formatting, and repository hygiene adjustments.
+
+
+
+## Documentation Translation (Completed: 2025-12-09)
+
+- [x] Translate root README.md to Hungarian and add cross-link from English README to the Hungarian version for discoverability
+  - File created: `README.hu.md`
+  - Cross-link added: `README.md` → "Magyar verzió: README.hu.md"
+  - Notes: Documentation-only change; no code modified, no tests impacted. Traceability: internal change in this commit.
