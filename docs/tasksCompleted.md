@@ -383,3 +383,31 @@ npm run test:codegen
   - Ran Spring Java Format tasks to fix `src/test/.../PetValidatorTests.java` formatting issues
   - Verified `./gradlew check` and `./gradlew build` succeed locally on Java 17 / Spring Boot 3.5.0
   - Notes: No production code logic changes. Only build config, formatting, and repository hygiene adjustments.
+
+---
+
+## README Arabic Translation (Completed: 2026-02-10)
+
+### Implementation Summary
+- Added a complete Arabic translation of the project README in `README.ar.md` with RTL rendering support.
+- Inserted a language switch link in the main `README.md` header to point to the Arabic version.
+- Documentation-only change; no source code modified and no tests affected.
+
+### Tasks Completed
+- [x] 1. Create `README.ar.md` with end-to-end Arabic translation and correct links/code blocks
+- [x] 2. Add translation link in `README.md`
+- [x] 3. Update `docs/tasksCompleted.md` with tracking details and progress summary
+
+### Traceability
+- Commit/PR reference: will be added after merge when commit SHA/PR number is available
+
+### Files Modified/Added
+- Created: `README.ar.md`
+- Modified: `README.md`
+- Modified: `docs/tasksCompleted.md`
+
+### Progress Summary (Localization)
+- Total Tasks: 3
+- Completed: 3
+- Remaining: 0
+- Overall Progress: 100%
